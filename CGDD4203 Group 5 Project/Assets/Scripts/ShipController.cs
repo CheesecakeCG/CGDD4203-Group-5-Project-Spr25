@@ -153,6 +153,7 @@ public class ShipController : MonoBehaviour
 
             Vector3 thrust = transform.rotation * Vector3.forward * stats.ThrustForce * .01f;
             currentMovement += thrust;
+            currentMovement -= autoBrakingStrength * characterController.velocity * Time.fixedDeltaTime;
 
             // Particles & Other FX
             onThrust.Invoke(1.0f);
@@ -162,7 +163,6 @@ public class ShipController : MonoBehaviour
         else
         {
             ChangeButtonColor(btnThrust, new Color(200 / 255f, 200 / 255f, 200 / 255f));
-            currentMovement -= autoBrakingStrength * characterController.velocity * Time.fixedDeltaTime;
             // Particles & Other FX
             onThrust.Invoke(0f);
             //DEV CODE - DELETE BEFORE FINAL BUILD
