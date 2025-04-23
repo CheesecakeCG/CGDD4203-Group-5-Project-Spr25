@@ -9,14 +9,12 @@ public class ShipStatistics {
     int shieldPowerMax;
     float fireRateMin;
     float fireRateMax;
-    int thrustForceMin;
-    int thrustForceMax;
 
 
     //Statistics
     [SerializeField] private int shieldPower;
     [SerializeField] private float fireRate;
-    [SerializeField] private float thrustForce;
+    [SerializeField] private float thrustForce = 20f;
     [SerializeField] private int shieldPowerMax1;
 
     public int ShieldPower { get => shieldPower; protected set => System.Math.Clamp(value, 0, ShieldPowerMax); }  //0-100
@@ -32,20 +30,18 @@ public class ShipStatistics {
         shieldPowerMax = 100;
         fireRateMin = 0.1f; //?
         fireRateMax = 1f;
-        thrustForceMin = 3;
-        thrustForceMax = 10; //?
 
         //Initialize statistics
         ShieldPower = shieldPowerMax; //full shields
         FireRate = fireRateMax; //slowest fire rate
-        ThrustForce = thrustForceMin; //Min thrust force
+        ThrustForce = thrustForce; //Min thrust force
     }
 
     //**UTILITY METHODS**
-    public void ApplyStatisticsMod(ShipStatisticModifierData newStatModData) {
+    public void ApplyStatisticsMod(ShipStatisticModifierData newStatModData) { // TODO: Make this read from a list of power ups
         ShieldPower = Mathf.Clamp(ShieldPower + newStatModData.ShieldPowerMod, shieldPowerMin, shieldPowerMax);
         FireRate = Mathf.Clamp(FireRate + newStatModData.FireRateMod, fireRateMin, fireRateMax);
-        ThrustForce = Mathf.Clamp(ThrustForce + newStatModData.ThrustForceMod, thrustForceMin, thrustForceMax);
+        ThrustForce = ThrustForce + newStatModData.ThrustForceMod;
     }
 
     public override string ToString() {
