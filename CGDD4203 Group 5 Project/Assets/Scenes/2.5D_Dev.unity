@@ -7620,7 +7620,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1898795514}
   - component: {fileID: 1898795520}
-  - component: {fileID: 1898795519}
   - component: {fileID: 1898795518}
   - component: {fileID: 1898795517}
   - component: {fileID: 1898795516}
@@ -7825,14 +7824,6 @@ MonoBehaviour:
   m_LightEstimation: 4
   m_FacingDirection: 1
   m_RenderMode: 0
---- !u!81 &1898795519
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898795513}
-  m_Enabled: 1
 --- !u!20 &1898795520
 Camera:
   m_ObjectHideFlags: 0
@@ -8428,7 +8419,7 @@ MonoBehaviour:
   enemyProjectileParent: {fileID: 624399279}
   levelWidth: 56
   levelHeight: 100
-  shipDebug: 0
+  shipDebug: 1
   wallDebug: 0
   enemyDebug: 0
 --- !u!114 &2087258542
@@ -8705,6 +8696,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 79dd04afbafbd4c4482c337039d5e0c2, type: 2}
+    - target: {fileID: 1164586172456290617, guid: 65a7ce24a72b87f499ca4ed0da1e4a65, type: 3}
+      propertyPath: isAR
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1164586172456290617, guid: 65a7ce24a72b87f499ca4ed0da1e4a65, type: 3}
       propertyPath: btnFire
       value: 

@@ -36,6 +36,7 @@ public class ShipController : MonoBehaviour
     [SerializeField] Button btnRTurn;
     [SerializeField] Button btnThrust;
     [SerializeField] Button btnFire;
+    [SerializeField] bool isAR;
     //
     PlayerInput playerInput;
     CharacterController characterController;
@@ -189,13 +190,22 @@ public class ShipController : MonoBehaviour
         //Turn      
 
         float turnInput = turnAction.ReadValue<float>();
-
-        if (AttitudeSensor.current != null)
+        if (!isAR)
         {
-            float turnAttitudeInput = Vector3.Dot(AttitudeSensor.current.attitude.ReadValue() * Vector3.up, Vector3.up);
-            if (Mathf.Abs(turnAttitudeInput) < 0.2f) { turnAttitudeInput = 0; } // Deadzone
+            if (AttitudeSensor.current != null)
+            {
+                float turnAttitudeInput = Vector3.Dot(AttitudeSensor.current.attitude.ReadValue() * Vector3.up, Vector3.up);
+                if (Mathf.Abs(turnAttitudeInput) < 0.2f) { turnAttitudeInput = 0; } // Deadzone
             // print($"turnAttitudeInput: {turnAttitudeInput}");
             turnInput += turnAttitudeInput * turnAttitudeInput * Mathf.Sign(turnAttitudeInput); // Curve input
+        }
+        }
+        else
+        {
+            var rot_delta = Quaternion.Inverse(Camera.main.gameObject.transform.rotation) * gameObject.transform.rotation;
+            var vec_delta = rot_delta * Vector3.forward;
+            turnInput = turnInput * Vector3.Dot(vec_delta, Vector3.forward);
+            // print(turnInput);
         }
         if (turnInput < 0)
         {
