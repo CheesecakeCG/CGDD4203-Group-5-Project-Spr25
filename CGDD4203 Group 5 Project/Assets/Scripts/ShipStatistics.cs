@@ -2,72 +2,65 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class ShipStatistics {
+public class ShipStatistics
+{
 
-    //Caps
-    int shieldPowerMin;
-    int shieldPowerMax;
-    float fireRateMin;
-    float fireRateMax;
-    int thrustForceMin;
-    int thrustForceMax;
+    // Caps
+    [SerializeField] float shieldPowerMin = 0;
+    [SerializeField] float shieldPowerMax = 100;
 
+    [SerializeField] float fireRateMin = 0.1f;
 
-    //Statistics
-    [SerializeField] private int shieldPower;
+    [SerializeField] float thrustForceMin = 3;
+
+    // Statistics
+    [SerializeField] private float shieldPower;
     [SerializeField] private float fireRate;
     [SerializeField] private float thrustForce;
-    [SerializeField] private int shieldPowerMax1;
 
-    public int ShieldPower { get => shieldPower; protected set => System.Math.Clamp(value, 0, ShieldPowerMax); }  //0-100
+
+    public float ShieldPower { get => shieldPower; protected set => Mathf.Clamp(value, 0, ShieldPowerMax); }  //0-100
     public float FireRate { get => fireRate; protected set => fireRate = value; } //seconds of cool down between shots
-    public float ThrustForce { get => thrustForce; protected set => thrustForce = value; } //3-10?
-    public int ShieldPowerMax { get => shieldPowerMax1; protected set => shieldPowerMax1 = value; }
+    public float ThrustForce { get => thrustForce; protected set => thrustForce = value; }
+    public float ShieldPowerMax { get => shieldPowerMax; protected set => shieldPowerMax = value; }
 
     //**CONSTRUCTOR**
-    public ShipStatistics() {
+    public ShipStatistics()
+    {
 
-        //Initialize caps
-        shieldPowerMin = 0;
-        shieldPowerMax = 100;
-        fireRateMin = 0.1f; //?
-        fireRateMax = 1f;
-        thrustForceMin = 3;
-        thrustForceMax = 10; //?
-
-        //Initialize statistics
-        ShieldPower = shieldPowerMax; //full shields
-        FireRate = fireRateMax; //slowest fire rate
-        ThrustForce = thrustForceMin; //Min thrust force
     }
 
     //**UTILITY METHODS**
-    public void ApplyStatisticsMod(ShipStatisticModifierData newStatModData) {
-        ShieldPower = Mathf.Clamp(ShieldPower + newStatModData.ShieldPowerMod, shieldPowerMin, shieldPowerMax);
-        FireRate = Mathf.Clamp(FireRate + newStatModData.FireRateMod, fireRateMin, fireRateMax);
-        ThrustForce = Mathf.Clamp(ThrustForce + newStatModData.ThrustForceMod, thrustForceMin, thrustForceMax);
+    public void ApplyStatisticsMod(ShipStatisticModifierData newStatModData)
+    { // TODO: Make this read from a list of power up, and be readable directly from the per
+        ShieldPower = Mathf.Max(ShieldPower + newStatModData.ShieldPowerMod, shieldPowerMin);
+        FireRate = Mathf.Max(FireRate + newStatModData.FireRateMod, fireRateMin);
+        ThrustForce = Mathf.Max(ThrustForce + newStatModData.ThrustForceMod, thrustForceMin);
     }
 
-    public override string ToString() {
-        return $"Shield Power: {ShieldPower}/{shieldPowerMax} | Fire Rate: {FireRate}s | ThrustForce: {ThrustForce}";
+    public override string ToString()
+    {
+        return $"Shield Power: {ShieldPower} | Fire Rate: {FireRate}s | ThrustForce: {ThrustForce}";
     }
 }
 
 
 [Serializable]
-public struct ShipStatisticModifierData {
+public struct ShipStatisticModifierData
+{
     //**PROPERTIES**
-    int shieldPowerMod;
+    float shieldPowerMod;
     float fireRateMod;
-    int thrustForceMod;
+    float thrustForceMod;
 
     // **FIELDS**
-    public int ShieldPowerMod { get => shieldPowerMod; }
+    public float ShieldPowerMod { get => shieldPowerMod; }
     public float FireRateMod { get => fireRateMod; }
-    public int ThrustForceMod { get => thrustForceMod; }
+    public float ThrustForceMod { get => thrustForceMod; }
 
     //**CONSTRUCTOR**  
-    public ShipStatisticModifierData(int shipPowerModIn, float fireRateModIn, int thrustForceModIn) {
+    public ShipStatisticModifierData(float shipPowerModIn, float fireRateModIn, float thrustForceModIn)
+    {
         shieldPowerMod = shipPowerModIn;
         fireRateMod = fireRateModIn;
         thrustForceMod = thrustForceModIn;
