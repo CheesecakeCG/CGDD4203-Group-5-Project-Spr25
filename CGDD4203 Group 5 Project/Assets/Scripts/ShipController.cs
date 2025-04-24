@@ -172,7 +172,7 @@ public class ShipController : MonoBehaviour
             playerProjectileController.velocity += characterController.velocity;
             playerProjectileController1.velocity += characterController.velocity;
             onGunFired.Invoke();
-            
+
             StartCoroutine(laserRecharge());
             Destroy(projectile2, 5f);
             Destroy(projectile, 5f);
@@ -196,9 +196,9 @@ public class ShipController : MonoBehaviour
             {
                 float turnAttitudeInput = Vector3.Dot(AttitudeSensor.current.attitude.ReadValue() * Vector3.up, Vector3.up);
                 if (Mathf.Abs(turnAttitudeInput) < 0.2f) { turnAttitudeInput = 0; } // Deadzone
-            // print($"turnAttitudeInput: {turnAttitudeInput}");
-            turnInput += turnAttitudeInput * turnAttitudeInput * Mathf.Sign(turnAttitudeInput); // Curve input
-        }
+                                                                                    // print($"turnAttitudeInput: {turnAttitudeInput}");
+                turnInput += turnAttitudeInput * turnAttitudeInput * Mathf.Sign(turnAttitudeInput); // Curve input
+            }
         }
         else
         {
