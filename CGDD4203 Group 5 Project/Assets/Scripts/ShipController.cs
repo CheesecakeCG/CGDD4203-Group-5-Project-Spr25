@@ -121,30 +121,6 @@ public class ShipController : MonoBehaviour
         //*Input Handling*
         //Thrust
         float thrustInput = thrustAction.ReadValue<float>();
-        if (AttitudeSensor.current != null)
-        {
-            float thrustAttitudeInput = Mathf.Clamp01(Vector3.Dot(AttitudeSensor.current.attitude.ReadValue() * Vector3.forward, Vector3.forward));
-
-            // TODO: Remind me to clean this up this later...
-            // if (thrustAttitudeInput > runningAvgThrustTiltBounds.max + 0.3f)
-            // {
-            //     runningAvgThrustTiltBounds.max = Mathf.Lerp(thrustAttitudeInput, runningAvgThrustTiltBounds.max, 1 - Mathf.Exp(-10f * Time.fixedDeltaTime));
-            //     runningAvgThrustTiltBounds.max = Mathf.Min(runningAvgThrustTiltBounds.min + 0.3f, runningAvgThrustTiltBounds.max);
-            // }
-            // if (thrustAttitudeInput < runningAvgThrustTiltBounds.min - 0.3f)
-            // {
-            //     runningAvgThrustTiltBounds.min = Mathf.Lerp(thrustAttitudeInput, runningAvgThrustTiltBounds.min, 1 - Mathf.Exp(-10f * Time.fixedDeltaTime));
-            //     runningAvgThrustTiltBounds.min = Mathf.Max(runningAvgThrustTiltBounds.max - 0.3f, runningAvgThrustTiltBounds.min);
-            // }
-            // float center = (runningAvgThrustTiltBounds.min + runningAvgThrustTiltBounds.max) / 2;
-            float center = 0.75f;
-            bool debounce = Mathf.Abs(thrustAttitudeInput - lastThrustAttitudeInput) < 0.1f;
-            bool attInputResult = debounce ? (thrustAttitudeInput > center) : lastThrustAttitudeInputResult;
-            thrustInput += attInputResult ? 1f : 0f;
-            // print($"thrustAttitudeInput: {thrustAttitudeInput}, runningAvgThrustTiltBounds.min: {runningAvgThrustTiltBounds.min} max {runningAvgThrustTiltBounds.max} center {center}");
-            lastThrustAttitudeInput = thrustAttitudeInput;
-            lastThrustAttitudeInputResult = attInputResult;
-        }
 
         if (thrustInput != 0)
         {
