@@ -41,6 +41,7 @@ public class ShipController : MonoBehaviour
     CharacterController characterController;
     //
     InputAction thrustAction;
+    float uiThrust;
     InputAction turnAction;
     InputAction fireAction;
     InputAction accelAction;
@@ -120,7 +121,7 @@ public class ShipController : MonoBehaviour
 
         //*Input Handling*
         //Thrust
-        float thrustInput = thrustAction.ReadValue<float>();
+        float thrustInput = Mathf.Min(1.0f, thrustAction.ReadValue<float>() + uiThrust);
 
         if (thrustInput != 0)
         {
@@ -132,7 +133,7 @@ public class ShipController : MonoBehaviour
             currentMovement -= autoBrakingStrength * characterController.velocity * Time.fixedDeltaTime;
 
             // Particles & Other FX
-            onThrust.Invoke(1.0f);
+            onThrust.Invoke(thrustInput);
             //DEV CODE - DELETE BEFORE FINAL BUILD
             devOutput += $"Thrust applied in direction: {Mathf.Round(thrust.x * 1000) / 1000},{Mathf.Round(thrust.z * 1000) / 1000}\n";
         }
@@ -260,6 +261,12 @@ public class ShipController : MonoBehaviour
             Debug.Log(devOutput);
         }
     }
+
+    public void ApplyThrustViaGUI(float t)
+    {
+        uiThrust = t;
+    }
+
     //
     private void OnTriggerEnter(Collider other)
     {
