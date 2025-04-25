@@ -205,7 +205,6 @@ public class ShipController : MonoBehaviour
             var shipForward = gameObject.transform.rotation * Vector3.forward;
             var camLeft = Vector3.ProjectOnPlane(Camera.main.gameObject.transform.rotation * Vector3.left, Vector3.up);
             turnInput += Vector3.Dot(camLeft, shipForward);
-            print(turnInput);
         }
         if (turnInput < 0)
         {

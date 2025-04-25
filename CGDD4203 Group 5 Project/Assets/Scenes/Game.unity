@@ -989,7 +989,7 @@ MonoBehaviour:
   enemyProjectileParent: {fileID: 624399279}
   levelWidth: 56
   levelHeight: 100
-  shipDebug: 1
+  shipDebug: 0
   wallDebug: 0
   enemyDebug: 0
 --- !u!114 &2087258542
