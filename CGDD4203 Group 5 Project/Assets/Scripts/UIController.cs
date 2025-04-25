@@ -12,7 +12,7 @@ public class UIController : MonoBehaviour
 
     public Button ARModeButton;
 
-    public bool ARMode;
+    public bool isARMode;
     public Camera nonARCam;
     public Camera ARCam;
 
@@ -23,7 +23,8 @@ public class UIController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ARMode = true;
+        isARMode = true;
+        ShipController.current.isARMode = isARMode;
         nonARCam.enabled = false;
         ARCam.enabled = true;
         Time.timeScale = 0f;
@@ -89,9 +90,9 @@ public class UIController : MonoBehaviour
 
     public void SwitchARMode()
     {
-        ARMode = !ARMode;
+        isARMode = !isARMode;
 
-        if (ARMode)
+        if (isARMode)
         {
             ARModeButton.GetComponent<Image>().color = new Color(0f, 255f, 0f, 255f);
         } 
@@ -102,6 +103,7 @@ public class UIController : MonoBehaviour
 
         ARCam.enabled = !ARCam.enabled;
         nonARCam.enabled = !nonARCam.enabled;
+        ShipController.current.isARMode = isARMode;
     }
 
     public void ChangeMusicVolume(float volume)

@@ -36,7 +36,7 @@ public class ShipController : MonoBehaviour
     [SerializeField] Button btnRTurn;
     [SerializeField] Button btnThrust;
     [SerializeField] Button btnFire;
-    [SerializeField] bool isAR;
+    [SerializeField] public bool isARMode;
     //
     PlayerInput playerInput;
     CharacterController characterController;
@@ -190,7 +190,7 @@ public class ShipController : MonoBehaviour
         //Turn      
 
         float turnInput = turnAction.ReadValue<float>();
-        if (!isAR)
+        if (!isARMode)
         {
             if (AttitudeSensor.current != null)
             {
