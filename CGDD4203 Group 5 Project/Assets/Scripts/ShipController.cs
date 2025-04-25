@@ -36,6 +36,7 @@ public class ShipController : MonoBehaviour
     [SerializeField] Button btnRTurn;
     [SerializeField] Button btnThrust;
     [SerializeField] Button btnFire;
+    [SerializeField] public bool isARMode;
     //
     PlayerInput playerInput;
     CharacterController characterController;
@@ -171,7 +172,7 @@ public class ShipController : MonoBehaviour
             playerProjectileController.velocity += characterController.velocity;
             playerProjectileController1.velocity += characterController.velocity;
             onGunFired.Invoke();
-            
+
             StartCoroutine(laserRecharge());
             Destroy(projectile2, 5f);
             Destroy(projectile, 5f);
@@ -189,13 +190,21 @@ public class ShipController : MonoBehaviour
         //Turn      
 
         float turnInput = turnAction.ReadValue<float>();
-
-        if (AttitudeSensor.current != null)
+        if (!isARMode)
         {
-            float turnAttitudeInput = Vector3.Dot(AttitudeSensor.current.attitude.ReadValue() * Vector3.up, Vector3.up);
-            if (Mathf.Abs(turnAttitudeInput) < 0.2f) { turnAttitudeInput = 0; } // Deadzone
-            // print($"turnAttitudeInput: {turnAttitudeInput}");
-            turnInput += turnAttitudeInput * turnAttitudeInput * Mathf.Sign(turnAttitudeInput); // Curve input
+            if (AttitudeSensor.current != null)
+            {
+                float turnAttitudeInput = Vector3.Dot(AttitudeSensor.current.attitude.ReadValue() * Vector3.up, Vector3.up);
+                if (Mathf.Abs(turnAttitudeInput) < 0.2f) { turnAttitudeInput = 0; } // Deadzone
+                                                                                    // print($"turnAttitudeInput: {turnAttitudeInput}");
+                turnInput += turnAttitudeInput * turnAttitudeInput * Mathf.Sign(turnAttitudeInput); // Curve input
+            }
+        }
+        else
+        {
+            var shipForward = gameObject.transform.rotation * Vector3.forward;
+            var camLeft = Vector3.ProjectOnPlane(Camera.main.gameObject.transform.rotation * Vector3.left, Vector3.up);
+            turnInput += Vector3.Dot(camLeft, shipForward);
         }
         if (turnInput < 0)
         {

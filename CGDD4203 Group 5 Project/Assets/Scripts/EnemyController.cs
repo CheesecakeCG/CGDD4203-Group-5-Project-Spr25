@@ -7,7 +7,7 @@ public class EnemyController : MonoBehaviour {
 
     //**PROPERTIES**
     [Header("Component References")]
-    [SerializeField] GameObject player;
+    GameObject player;
     [SerializeField] GameManager gameManager;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform projectileSpawn;
@@ -33,8 +33,8 @@ public class EnemyController : MonoBehaviour {
     private void Awake() {
         //Cache references
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindWithTag("Player");
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        player = ShipController.current.gameObject;
+        gameManager = GameManager.current;
         projectileParent = GameObject.Find("EnemyProjectiles").transform;
 
         //Get waypoints

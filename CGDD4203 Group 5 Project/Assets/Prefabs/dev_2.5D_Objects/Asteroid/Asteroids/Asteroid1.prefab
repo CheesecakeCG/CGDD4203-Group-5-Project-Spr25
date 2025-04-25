@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2536981021501733539}
   - component: {fileID: 4606523354423255719}
   - component: {fileID: 298524499978906057}
+  - component: {fileID: 3146003746955555615}
   m_Layer: 9
   m_Name: Asteroid1
   m_TagString: Asteroid
@@ -98,6 +99,22 @@ MonoBehaviour:
   destructionFX: {fileID: 8810238211996577448, guid: 74c785d87b1866c958fe7b515202d073, type: 3}
   speed: 5
   asteroidSpawner: {fileID: 0}
+--- !u!208 &3146003746955555615
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5630201527549435715}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1.02, y: 0.5, z: 1.02}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &3582652575246244728
 PrefabInstance:
   m_ObjectHideFlags: 0
