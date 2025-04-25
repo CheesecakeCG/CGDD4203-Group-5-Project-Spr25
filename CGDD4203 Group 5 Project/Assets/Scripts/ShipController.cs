@@ -202,10 +202,10 @@ public class ShipController : MonoBehaviour
         }
         else
         {
-            var rot_delta = Quaternion.Inverse(Camera.main.gameObject.transform.rotation) * gameObject.transform.rotation;
-            var vec_delta = rot_delta * Vector3.forward;
-            turnInput = turnInput * Vector3.Dot(vec_delta, Vector3.forward);
-            // print(turnInput);
+            var shipForward = gameObject.transform.rotation * Vector3.forward;
+            var camLeft = Vector3.ProjectOnPlane(Camera.main.gameObject.transform.rotation * Vector3.left, Vector3.up);
+            turnInput += Vector3.Dot(camLeft, shipForward);
+            print(turnInput);
         }
         if (turnInput < 0)
         {
