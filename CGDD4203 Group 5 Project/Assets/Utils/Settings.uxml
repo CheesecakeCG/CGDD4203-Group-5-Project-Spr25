@@ -1,0 +1,15 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <engine:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: column-reverse; background-color: rgba(0, 0, 0, 0.61);">
+        <engine:VisualElement picking-mode="Ignore" style="flex-grow: 0; margin-left: 8px; margin-top: 8px; margin-right: 8px; margin-bottom: 8px; padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px; background-color: rgba(255, 255, 255, 0.62); flex-direction: column; align-items: stretch; justify-content: space-between; align-self: stretch;">
+            <engine:ScrollView style="flex-grow: 1;">
+                <engine:Toggle label="Post Processing" name="PostProcessingToggle" value="true" />
+                <engine:Toggle label="HDR Display Output" name="HDRToggle" />
+                <engine:DropdownField label="FPS Target" name="FPSTarget" choices="30,45,60,90,120,144" index="2" />
+            </engine:ScrollView>
+            <engine:Button name="BackButton" style="flex-direction: row;">
+                <engine:Label text="" style="-unity-font-definition: url(&quot;project://database/Assets/Fonts/fontawesome-free-6.4.2-web/webfonts/fa-solid-900.ttf?fileID=12800000&amp;guid=7976c282c5de0d7ba955014db5a7f8b3&amp;type=3#fa-solid-900&quot;);" />
+                <engine:Label text="Back to Game" />
+            </engine:Button>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>
